@@ -1,11 +1,11 @@
 #!/bin/bash
+
 function install_ao(){
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
     nvm install 20
-    nvm use 20
     npm i -g https://get_ao.g8way.io
 }
 
@@ -41,11 +41,15 @@ end
 )
 EOF
     /usr/bin/expect<<_EOF
-    spawn aos
-    expect {
-        "aos>" {send ".load-blueprint chat\r"}
-        "aos>" {send "Join("Getting-Started", \"null\")\r"}
-    }
+    spawn  aos
+    expect "aos>" 
+    send   ".load-blueprint chat\r"
+    expect "aos>" 
+    send   ".load chatroom.lua\r"
+    expect "aos>" 
+    send "Handlers.list\r"
+    expect "aos>"
+    send "Send\\(\\{ Target = ao.id, Action = \"Register\" \\}\\)\r"
     expect eof
 _EOF
 }
