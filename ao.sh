@@ -50,7 +50,12 @@ EOF
     send "Handlers.list\r"
     expect "aos>"
     send "Send\\(\\{ Target = ao.id, Action = \"Register\" \\}\\)\r"
+    expect "aos>"
+    send "Members"
+    expect "aos>"
+    send "Send\\(\\{Target = ao.id, Action = \"Broadcast\", Data = \"Broadcasting My 1st Message\" })\r"
     expect eof
+    
 _EOF
 }
 # 主菜单
