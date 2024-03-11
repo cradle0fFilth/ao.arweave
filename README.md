@@ -1,0 +1,2 @@
+# ao.arweave
+automation scipt
